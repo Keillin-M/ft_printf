@@ -22,18 +22,13 @@ OBJS = $(SRCS:.c=.o)
 LIBFT_DIR = Libft
 LIBFT_LIB = $(LIBFT_DIR)/libft.a
 
-TEMP_LIBFT_OBJS = temp_libft_objs
-
 all: $(NAME)
 
 $(LIBFT_LIB):
 	$(MAKE) -C $(LIBFT_DIR)
 
 $(NAME): $(OBJS) $(LIBFT_LIB)
-	mkdir -p $(TEMP_LIBFT_OBJS)
-	cd $(TEMP_LIBFT_OBJS) && ar x ../$(LIBFT_LIB)
-	ar rcs $(NAME) $(OBJS) $(TEMP_LIBFT_OBJS)/*.o
-	rm -rf $(TEMP_LIBFT_OBJS)
+	ar rcs $(NAME) $(OBJS) $(LIBFT_LIB)
 
 %.o: %.c libftprintf.h
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
